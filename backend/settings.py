@@ -19,7 +19,6 @@ ALLOWED_HOSTS = [
     ".onrender.com",   # Render domain
     "localhost",
     "127.0.0.1",
-    # Add your custom domain later, e.g. "eredimulamalaw.com"
 ]
 
 # =====================
@@ -50,7 +49,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # for static files on Render
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -62,14 +61,7 @@ MIDDLEWARE = [
 # =====================
 # CORS
 # =====================
-# For dev (open to all):
 CORS_ALLOW_ALL_ORIGINS = True
-
-# For production, replace with:
-# CORS_ALLOWED_ORIGINS = [
-#     "https://yourapp.web.app",          # Firebase hosting URL
-#     "https://www.eredimulamalaw.com",   # Custom domain
-# ]
 
 # =====================
 # Templates
@@ -94,11 +86,11 @@ TEMPLATES = [
 WSGI_APPLICATION = "backend.wsgi.application"
 
 # =====================
-# Database (PostgreSQL on Render free plan)
+# Database (PostgreSQL on Render)
 # =====================
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),  # Render sets this automatically
+        default=os.environ.get("DATABASE_URL"),  # Render internal database URL
         conn_max_age=600,
         ssl_require=True
     )
