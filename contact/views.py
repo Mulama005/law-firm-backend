@@ -1,4 +1,5 @@
-from rest_framework import generics
+from rest_framework import generics, status
+from rest_framework.response import Response
 from .models import ContactMessage, Subscriber
 from .serializers import ContactMessageSerializer, SubscriberSerializer
 from django.core.mail import send_mail
@@ -11,6 +12,15 @@ from django.views.decorators.csrf import csrf_exempt
 class ContactMessageCreateView(generics.CreateAPIView):
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer
+
+    def create(self, request, *args, **kwargs):
+        print("📥 Incoming contact request data:", request.data)  # 👈 Log incoming data
+        serializer = self.get_serializer(data=request.data)
+        if not serializer.is_valid():
+            print("❌ Validation errors:", serializer.errors)  # 👈 Log validation errors
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        self.perform_create(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_create(self, serializer):
         instance = serializer.save()
@@ -36,6 +46,15 @@ class ContactMessageCreateView(generics.CreateAPIView):
 class SubscriberCreateView(generics.CreateAPIView):
     queryset = Subscriber.objects.all()
     serializer_class = SubscriberSerializer
+
+    def create(self, request, *args, **kwargs):
+        print("📥 Incoming subscriber data:", request.data)  # 👈 Log incoming data
+        serializer = self.get_serializer(data=request.data)
+        if not serializer.is_valid():
+            print("❌ Validation errors:", serializer.errors)  # 👈 Log validation errors
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        self.perform_create(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_create(self, serializer):
         instance = serializer.save()
