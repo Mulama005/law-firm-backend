@@ -3,8 +3,11 @@ from .models import ContactMessage, Subscriber
 from .serializers import ContactMessageSerializer, SubscriberSerializer
 from django.core.mail import send_mail
 from django.conf import settings
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 
+@method_decorator(csrf_exempt, name="dispatch")
 class ContactMessageCreateView(generics.CreateAPIView):
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer
@@ -29,6 +32,7 @@ class ContactMessageCreateView(generics.CreateAPIView):
         )
 
 
+@method_decorator(csrf_exempt, name="dispatch")
 class SubscriberCreateView(generics.CreateAPIView):
     queryset = Subscriber.objects.all()
     serializer_class = SubscriberSerializer
