@@ -1,7 +1,18 @@
-from django.http import HttpResponse
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
-def google_verification(request):
-    return HttpResponse(
-        "google-site-verification: google87ffcc77f7e2b586.html",
-        content_type="text/plain"
-    )
+@csrf_exempt
+def contact(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        name = data.get("name")
+        email = data.get("email")
+        message = data.get("message")
+
+        # TODO: save to DB or send email
+
+        return JsonResponse({"success": True, "message": "Consultation submitted"})
+
+    return JsonResponse({"error": "Invalid request"}, status=400)
