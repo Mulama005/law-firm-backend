@@ -1,31 +1,27 @@
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from .models import Consultation
-import json
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+from .serializers import ConsultationSerializer
 
 
 def google_verification(request):
     return HttpResponse(
         "google-site-verification: google87ffcc77f7e2b586.html",
-        content_type="text/plain"
+        content_type="text/plain",
     )
 
 
-@csrf_exempt
-def contact(request):
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
+class ContactView(APIView):
+    def post(self, request):
+        serializer = ConsultationSerializer(data=request.data)
 
-            Consultation.objects.create(
-                name=data.get("name"),
-                email=data.get("email"),
-                message=data.get("message"),
-            )
+        if not serializer.is_valid():
+            print("ERRORS:", serializer.errors)  # 👈 ADD THIS
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            return JsonResponse({"success": True}, status=201)
-
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=400)
-
-    return JsonResponse({"error": "Invalid request method"}, status=405)
+        serializer.save()
+        return Response(
+            {"message": "Consultation submitted successfully"},
+            status=status.HTTP_201_CREATED
+        )

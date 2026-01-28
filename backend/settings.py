@@ -52,6 +52,17 @@ INSTALLED_APPS = [
 ]
 
 # =========================
+# DJANGO REST FRAMEWORK
+# =========================
+
+REST_FRAMEWORK = {
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
+        "rest_framework.parsers.FormParser",       # Add this
+        "rest_framework.parsers.MultiPartParser",  # For file uploads
+    ],
+}
+# =========================
 # MIDDLEWARE
 # =========================
 
@@ -110,12 +121,20 @@ TEMPLATES = [
 # =========================
 
 DATABASES = {
-    "default": dj_database_url.parse(
-        os.getenv("DATABASE_URL","sqlite:///db.sqlite3"),
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
         conn_max_age=600,
-        ssl_require=True,
+        ssl_require=False
     )
 }
+
+if os.environ.get("RENDER") != "true":  # Render sets RENDER=true
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # =========================
 # PASSWORD VALIDATION
@@ -142,9 +161,35 @@ USE_TZ = True
 # =========================
 
 STATIC_URL = "/static/"
+
+# Where collectstatic will put files (Render / production)
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# Where Django looks for static files in development
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# =========================
+# MEDIA FILES
+# =========================
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+# =========================
+# CSRF / SESSION (Firebase-safe)
+# =========================
+
+CSRF_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SECURE = True
+
+
+
 
 # =========================
 # EMAIL CONFIGURATION

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import google_verification, contact
+from .views import google_verification, ContactView
 
 urlpatterns = [
     path(
@@ -7,5 +7,9 @@ urlpatterns = [
         google_verification,
         name="google_verification",
     ),
-    path("api/contact/", contact, name="contact"),
+    path(
+        "api/contact/",
+        ContactView.as_view(),  # 👈 CBV must use .as_view()
+        name="contact",
+    ),
 ]

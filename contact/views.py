@@ -16,3 +16,11 @@ def contact(request):
         return JsonResponse({"success": True, "message": "Consultation submitted"})
 
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+def post(self, request):
+    serializer = ContactSerializer(data=request.data)
+    if not serializer.is_valid():
+        print(serializer.errors)  # 👈 ADD THIS
+        return Response(serializer.errors, status=400)
+    serializer.save()
+    return Response({"message": "Submitted"}, status=201)
