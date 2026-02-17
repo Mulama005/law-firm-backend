@@ -27,26 +27,15 @@ class ContactView(APIView):
             status=status.HTTP_201_CREATED
         )
 
-
 class SubscribeView(APIView):
     def post(self, request):
-        email = request.data.get("email")
+        serializer = SubscriberSerializer(data=request.data)
 
-        if not email:
-            return Response(
-                {"message": "Email is required."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        try:
-            subscriber = Subscriber.objects.create(email=email)
+        if serializer.is_valid():
+            serializer.save()
             return Response(
                 {"message": "Subscription successful!"},
                 status=status.HTTP_201_CREATED
             )
 
-        except IntegrityError:
-            return Response(
-                {"message": "Already subscribed"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
