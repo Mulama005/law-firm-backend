@@ -18,7 +18,7 @@ class ContactView(APIView):
         serializer = ConsultationSerializer(data=request.data)
 
         if not serializer.is_valid():
-            print("ERRORS:", serializer.errors)  # 👈 ADD THIS
+            print("ERRORS:", serializer.errors)  
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         serializer.save()
@@ -27,7 +27,7 @@ class ContactView(APIView):
             status=status.HTTP_201_CREATED
         )
 
-    class SubscribeView(APIView):
+class SubscribeView(APIView):
     def post(self, request):
         serializer = SubscriberSerializer(data=request.data)
 
