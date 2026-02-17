@@ -8,8 +8,7 @@ urlpatterns = [
         name="google_verification",
     ),
     path(
-        "api/contact/",
-        ContactView.as_view(),  # 👈 CBV must use .as_view()
-        name="contact",
+        "api/contact/", ContactView.as_view(), name="contact",
+        "subscribe/", SubscribeView.as_view(), name="subscribe"
     ),
 ]
