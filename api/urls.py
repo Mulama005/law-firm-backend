@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import google_verification, ContactView
+from .views import google_verification, ContactView, SubscribeView
 
 urlpatterns = [
     path(
@@ -7,8 +7,6 @@ urlpatterns = [
         google_verification,
         name="google_verification",
     ),
-    path(
-        "api/contact/", ContactView.as_view(), name="contact",
-        "subscribe/", SubscribeView.as_view(), name="subscribe"
-    ),
+    path("api/contact/", ContactView.as_view(), name="contact"),
+    path("api/subscribe/", SubscribeView.as_view(), name="subscribe"),
 ]
