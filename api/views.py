@@ -9,7 +9,7 @@ from .serializers import SubscriberSerializer, ConsultationSerializer
 from .utils import send_branded_email
 
 
-#Google Site Verification
+# Google Site Verification
 def google_verification(request):
     return HttpResponse(
         "google-site-verification: google87ffcc77f7e2b586.html",
@@ -17,7 +17,7 @@ def google_verification(request):
     )
 
 
-#Consultation View
+# Consultation View
 class ContactView(APIView):
     def post(self, request):
         serializer = ConsultationSerializer(data=request.data)
@@ -28,27 +28,29 @@ class ContactView(APIView):
 
         consultation = serializer.save()
 
-        #Send confirmation email to client
+        # Send emails safely
         try:
-        send_branded_email(
-            subject="Consultation Request Received - Eredi Law Advocates",
-            template_name="emails/consultation_email.html",
-            context={
-                "name": consultation.name,
-            },
-            recipient_list=[consultation.email],
-        )
+            # Send confirmation email to client
+            send_branded_email(
+                subject="Consultation Request Received - Eredi Law Advocates",
+                template_name="emails/consultation_email.html",
+                context={
+                    "name": consultation.name,
+                },
+                recipient_list=[consultation.email],
+            )
 
-        #Notify admin
-        send_branded_email(
-            subject="New Consultation Request",
-            template_name="emails/consultation_email.html",
-            context={
-                "name": consultation.name,
-            },
-            recipient_list=[settings.DEFAULT_FROM_EMAIL],
-        )
-         except Exception as e:
+            # Notify admin
+            send_branded_email(
+                subject="New Consultation Request",
+                template_name="emails/consultation_email.html",
+                context={
+                    "name": consultation.name,
+                },
+                recipient_list=[settings.DEFAULT_FROM_EMAIL],
+            )
+
+        except Exception as e:
             print("Email Error:", str(e))
 
         return Response(
@@ -57,7 +59,7 @@ class ContactView(APIView):
         )
 
 
-#Subscribe View
+# Subscribe View
 class SubscribeView(APIView):
     def post(self, request):
         serializer = SubscriberSerializer(data=request.data)
@@ -67,22 +69,23 @@ class SubscribeView(APIView):
 
         subscriber = serializer.save()
 
-        #Send confirmation email to subscriber
+        # Send emails safely
         try:
-        send_branded_email(
-            subject="Welcome to Eredi Law Advocates",
-            template_name="emails/subscription_email.html",
-            context={},
-            recipient_list=[subscriber.email],
-        )
+            # Send confirmation email to subscriber
+            send_branded_email(
+                subject="Welcome to Eredi Law Advocates",
+                template_name="emails/subscription_email.html",
+                context={},
+                recipient_list=[subscriber.email],
+            )
 
-        #Notify admin of new subscriber
-        send_branded_email(
-            subject="New Subscriber Alert",
-            template_name="emails/subscription_email.html",
-            context={},
-            recipient_list=[settings.DEFAULT_FROM_EMAIL],
-        )
+            # Notify admin of new subscriber
+            send_branded_email(
+                subject="New Subscriber Alert",
+                template_name="emails/subscription_email.html",
+                context={},
+                recipient_list=[settings.DEFAULT_FROM_EMAIL],
+            )
 
         except Exception as e:
             print("Email Error:", str(e))
