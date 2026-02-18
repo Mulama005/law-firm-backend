@@ -12,10 +12,7 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-<<<<<<< HEAD
 
-=======
->>>>>>> c2cabf8e7ed723401e921398187f1df065cf6cb1
 # SECURITY
 
 
@@ -80,10 +77,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-<<<<<<< HEAD
-
-=======
->>>>>>> c2cabf8e7ed723401e921398187f1df065cf6cb1
 # CORS
 
 
@@ -102,10 +95,7 @@ CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = "backend.urls"
 WSGI_APPLICATION = "backend.wsgi.application"
 
-<<<<<<< HEAD
-=======
 
->>>>>>> c2cabf8e7ed723401e921398187f1df065cf6cb1
 # TEMPLATES
 
 
@@ -187,12 +177,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-<<<<<<< HEAD
-# CSRF / SESSION (Firebase-safe)
-=======
+
 
 # CSRF / SESSION 
->>>>>>> c2cabf8e7ed723401e921398187f1df065cf6cb1
 
 
 CSRF_COOKIE_SAMESITE = "None"
