@@ -12,9 +12,9 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# =========================
+
 # SECURITY
-# =========================
+
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-dev-secret")
 
@@ -31,9 +31,9 @@ CSRF_TRUSTED_ORIGINS = [
     "https://eredilawadvocates.web.app",
 ]
 
-# =========================
+
 # APPLICATIONS
-# =========================
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -51,9 +51,9 @@ INSTALLED_APPS = [
     "api",
 ]
 
-# =========================
+
 # DJANGO REST FRAMEWORK
-# =========================
+
 
 REST_FRAMEWORK = {
     "DEFAULT_PARSER_CLASSES": [
@@ -62,9 +62,9 @@ REST_FRAMEWORK = {
         "rest_framework.parsers.MultiPartParser",  # For file uploads
     ],
 }
-# =========================
+
 # MIDDLEWARE
-# =========================
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -77,9 +77,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# =========================
+
 # CORS
-# =========================
+
 
 CORS_ALLOW_ALL_ORIGINS = False
 
@@ -89,21 +89,20 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_CREDENTIALS = True
 
-# =========================
+
 # URLS / WSGI
-# =========================
+
 
 ROOT_URLCONF = "backend.urls"
 WSGI_APPLICATION = "backend.wsgi.application"
 
-# =========================
 # TEMPLATES
-# =========================
+
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -116,9 +115,9 @@ TEMPLATES = [
     },
 ]
 
-# =========================
+
 # DATABASE 
-# =========================
+
 
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
@@ -135,9 +134,9 @@ else:
         }
     }
 
-# =========================
+
 # PASSWORD VALIDATION
-# =========================
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -146,18 +145,18 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# =========================
+
 # INTERNATIONALIZATION
-# =========================
+
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# =========================
+
 # STATIC FILES
-# =========================
+
 
 STATIC_URL = "/static/"
 
@@ -171,16 +170,15 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# =========================
+
 # MEDIA FILES
-# =========================
+
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# =========================
 # CSRF / SESSION (Firebase-safe)
-# =========================
+
 
 CSRF_COOKIE_SAMESITE = "None"
 CSRF_COOKIE_SECURE = True
@@ -190,9 +188,9 @@ SESSION_COOKIE_SECURE = True
 
 
 
-# =========================
+
 # EMAIL CONFIGURATION
-# =========================
+
 
 EMAIL_BACKEND = os.getenv(
     "EMAIL_BACKEND",
@@ -210,9 +208,9 @@ DEFAULT_FROM_EMAIL = os.getenv(
     EMAIL_HOST_USER,
 )
 
-# =========================
-# LOGGING (OPTIONAL BUT HELPFUL)
-# =========================
+
+# LOGGING 
+
 
 LOGGING = {
     "version": 1,
