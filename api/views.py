@@ -29,6 +29,7 @@ class ContactView(APIView):
         consultation = serializer.save()
 
         #Send confirmation email to client
+        try:
         send_branded_email(
             subject="Consultation Request Received - Eredi Law Advocates",
             template_name="emails/consultation_email.html",
@@ -47,6 +48,8 @@ class ContactView(APIView):
             },
             recipient_list=[settings.DEFAULT_FROM_EMAIL],
         )
+         except Exception as e:
+            print("Email Error:", str(e))
 
         return Response(
             {"message": "Consultation submitted successfully"},
@@ -65,6 +68,7 @@ class SubscribeView(APIView):
         subscriber = serializer.save()
 
         #Send confirmation email to subscriber
+        try:
         send_branded_email(
             subject="Welcome to Eredi Law Advocates",
             template_name="emails/subscription_email.html",
@@ -79,6 +83,9 @@ class SubscribeView(APIView):
             context={},
             recipient_list=[settings.DEFAULT_FROM_EMAIL],
         )
+
+        except Exception as e:
+            print("Email Error:", str(e))
 
         return Response(
             {"message": "Subscription successful!"},
