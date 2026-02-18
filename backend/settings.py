@@ -12,7 +12,10 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c2cabf8e7ed723401e921398187f1df065cf6cb1
 # SECURITY
 
 
@@ -58,8 +61,8 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     "DEFAULT_PARSER_CLASSES": [
         "rest_framework.parsers.JSONParser",
-        "rest_framework.parsers.FormParser",       # Add this
-        "rest_framework.parsers.MultiPartParser",  # For file uploads
+        "rest_framework.parsers.FormParser",       
+        "rest_framework.parsers.MultiPartParser",  
     ],
 }
 
@@ -77,7 +80,10 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c2cabf8e7ed723401e921398187f1df065cf6cb1
 # CORS
 
 
@@ -96,6 +102,10 @@ CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = "backend.urls"
 WSGI_APPLICATION = "backend.wsgi.application"
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c2cabf8e7ed723401e921398187f1df065cf6cb1
 # TEMPLATES
 
 
@@ -160,10 +170,10 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-# Where collectstatic will put files (Render / production)
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# Where Django looks for static files in development
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
@@ -177,7 +187,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+<<<<<<< HEAD
 # CSRF / SESSION (Firebase-safe)
+=======
+
+# CSRF / SESSION 
+>>>>>>> c2cabf8e7ed723401e921398187f1df065cf6cb1
 
 
 CSRF_COOKIE_SAMESITE = "None"
