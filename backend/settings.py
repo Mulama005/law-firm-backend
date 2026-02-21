@@ -198,7 +198,7 @@ SESSION_COOKIE_SECURE = True
 
 EMAIL_BACKEND = os.getenv(
     "EMAIL_BACKEND",
-    "django.core.mail.backends.smtp.EmailBackend",
+    "django.core.mail.backends.console.EmailBackend",
 )
 
 EMAIL_HOST = os.getenv("EMAIL_HOST")
