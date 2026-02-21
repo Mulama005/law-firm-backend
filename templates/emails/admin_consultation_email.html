@@ -1,0 +1,12 @@
+{% extends "emails/base_email.html" %}
+
+{% block content %}
+<h3 style="color:#B71540;">New Consultation Request</h3>
+
+<p><strong>Name:</strong> {{ name }}</p>
+<p><strong>Email:</strong> {{ email }}</p>
+<p><strong>Phone:</strong> {{ phone }}</p>
+<p><strong>Message:</strong></p>
+<p>{{ message }}</p>
+
+{% endblock %}
