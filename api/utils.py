@@ -18,4 +18,5 @@ def send_branded_email(subject, template_name, context, recipient_list):
     )
 
     email.attach_alternative(html_content, "text/html")
-    email.send()
+    email.send(fail_silently=True)
+
