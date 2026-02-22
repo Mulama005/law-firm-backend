@@ -61,3 +61,44 @@ class ConsultationSerializer(serializers.ModelSerializer):
         admin_email.send(fail_silently=False)
 
         return consultation
+
+
+class SubscriberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscriber
+        fields = "__all__"
+
+    def create(self, validated_data):
+        subscriber = super().create(validated_data)
+
+        
+        subscriber_context = {
+            "email": subscriber.email,
+        }
+
+        subscriber_html = render_to_string(
+            "emails/subscriber_welcome_email.html",
+            subscriber_context
+        )
+
+        welcome_email = EmailMultiAlternatives(
+            subject="Welcome to Eredi Law Newsletter",
+            body="Thank you for subscribing to Eredi Law Advocates.",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[subscriber.email],
+        )
+
+        welcome_email.attach_alternative(subscriber_html, "text/html")
+        welcome_email.send(fail_silently=False)
+
+        
+        admin_email = EmailMultiAlternatives(
+            subject="New Newsletter Subscriber",
+            body=f"New subscriber: {subscriber.email}",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[settings.DEFAULT_FROM_EMAIL],
+        )
+
+        admin_email.send(fail_silently=False)
+
+        return subscriber
