@@ -60,7 +60,7 @@ class ConsultationSerializer(serializers.ModelSerializer):
         admin_email.attach_alternative(admin_html, "text/html")
         admin_email.send(fail_silently=False)
 
-        return consultation
+        return Consultation
 
 
 class SubscriberSerializer(serializers.ModelSerializer):
@@ -101,4 +101,4 @@ class SubscriberSerializer(serializers.ModelSerializer):
 
         admin_email.send(fail_silently=False)
 
-        return subscriber
+        return Subscriber
