@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
-from .models import Consultation
+from .models import Consultation, Subscriber
 
 
 class ConsultationSerializer(serializers.ModelSerializer):
@@ -60,7 +60,7 @@ class ConsultationSerializer(serializers.ModelSerializer):
         admin_email.attach_alternative(admin_html, "text/html")
         admin_email.send(fail_silently=False)
 
-        return Consultation
+        return consultation
 
 
 class SubscriberSerializer(serializers.ModelSerializer):
@@ -101,4 +101,4 @@ class SubscriberSerializer(serializers.ModelSerializer):
 
         admin_email.send(fail_silently=False)
 
-        return Subscriber
+        return subscriber
