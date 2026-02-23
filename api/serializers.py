@@ -33,7 +33,10 @@ class ConsultationSerializer(serializers.ModelSerializer):
         )
 
         client_email.attach_alternative(client_html, "text/html")
-        client_email.send(fail_silently=False)
+        try:
+            client_email.send(fail_silently=False)
+            except Exception as e:
+                print("Email failed:", str(e))
 
        
         #ADMIN NOTIFICATION EMAIL
@@ -98,7 +101,11 @@ class SubscriberSerializer(serializers.ModelSerializer):
             from_email=settings.DEFAULT_FROM_EMAIL,
             to=[settings.DEFAULT_FROM_EMAIL],
         )
+        try:
+            admin_email.send(fail_silently=False)
+            except Exception as e:
+                print("Email failed:", str(e))
 
-        admin_email.send(fail_silently=False)
+        
 
         return subscriber
